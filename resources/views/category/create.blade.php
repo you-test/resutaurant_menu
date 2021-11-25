@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
-@section('content');
+@section('content')
 <div class="container mt-3" style="max-width: 720px;">
     <div class="text-right">
         <a href="{{ url('/product/create') }}"></a>
     </div>
 
-    <form>
+    <form action="{{ route('category.store') }}" method="POST">
+        @csrf
         <div class="form-group">
             <label for="categoryAdd" class="font-weight-bold">新規カテゴリー追加</label>
             <input type="text" class="form-control" id="categoryAdd" name="name"/>
