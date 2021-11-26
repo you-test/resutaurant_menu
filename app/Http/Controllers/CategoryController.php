@@ -14,7 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category.index');
+        // return view('category.index');
+
+        $categories = Category::latest()->get();
+        return view('category.index', ['categories' => $categories]);
     }
 
     /**
@@ -40,6 +43,8 @@ class CategoryController extends Controller
         Category::create([
             'name' => request('name')
         ]);
+
+        return redirect()->back()->with('message', 'カテゴリーが追加されました。');
     }
 
     /**
@@ -61,7 +66,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('category.edit', ['category' => $category]);
     }
 
     /**
