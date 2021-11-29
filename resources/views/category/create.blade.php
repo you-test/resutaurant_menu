@@ -14,7 +14,10 @@
         @csrf
         <div class="form-group">
             <label for="categoryAdd" class="font-weight-bold">新規カテゴリー追加</label>
-            <input type="text" class="form-control" id="categoryAdd" name="name"/>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="categoryAdd" name="name"/>
+            @error('name')
+                <p class="text-danger">{{ $message }}</p>
+            @enderror
         </div>
         <button type="submit" class="btn btn-primary">追加</button>
     </form>

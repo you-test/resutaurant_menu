@@ -11,7 +11,10 @@
             @method('PUT')
             <div class="form-group">
                 <label for="categoryAdd" class="font-weight-bold">カテゴリー編集</label>
-                <input type="text" class="form-controll" id="categoryAdd" name="name" value="{{ $category->name }}">
+                <input type="text" class="form-controll @error('name') is-invalid @enderror" id="categoryAdd" name="name" value="{{ $category->name }}">
+                @error('name')
+                    <p class="text-danger">{{ $message }}</p>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary">編集</button>
         </form>

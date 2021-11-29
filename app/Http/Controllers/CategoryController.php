@@ -40,6 +40,14 @@ class CategoryController extends Controller
     {
         // return dd($request->all());
 
+        request()->validate(
+            ['name' => 'required|unique:categories'],
+            [
+                'name.required' => 'カテゴリーを入力してください。',
+                'name.unique' => 'そのカテゴリーは既に追加されています。'
+            ]
+        );
+
         Category::create([
             'name' => request('name')
         ]);
@@ -79,7 +87,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate(
+            ['name' => 'required|unique:categories'],
+            [
+                'name.required' => 'カテゴリーを入力してください',
+                'name.unique' => 'そのカテゴリーは既に追加されています。'
+            ]
+        );
+
+        $category = Category::find($id);
+        $category->name = request('name');
+        $category->save();
+        return redirect('/category')->with('message', 'カテゴリーが追加されました。');
     }
 
     /**
@@ -90,6 +109,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+        return redirect('/category')->with('message', 'カテゴリーが削除されました。');
     }
 }
