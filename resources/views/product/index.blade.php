@@ -41,24 +41,26 @@
       </tr>
     </thead>
     <tbody>
+      @if(count($products) > 0)
+      @foreach($products as $key => $product)
       <tr>
         <th scope="row">
-          1
+          {{ $key + 1 }}
         </th>
         <td style="max-width: 200px;">
-          <img src="#" class="img-fluid" />
+          <img src="{{ asset('images') }}/{{ $product->image }}" class="img-fluid" />
         </td>
         <td>
-          デミグラスハンバーグ
+          {{ $product->name }}
         </td>
         <td style="max-width: 300px;">
-          お肉の旨味をギュッと閉じ込めたジューシーなハンバーグに、濃厚なデミグラスソースをたっぷりとかけてお楽しみください。
+          {{ $product->description }}
         </td>
         <td>
-          880
+          {{ $product->price }}
         </td>
         <td>
-          グランドメニュー
+          {{ $product->category->name}}
         </td>
         <td>
           <button type="button" class="btn btn-outline-danger"><i class="far fa-edit"></i> 編集</button>
@@ -67,8 +69,20 @@
           <button type="button" class="btn btn-outline-primary"><i class="far fa-trash-alt"></i> 削除</button>
         </td>
       </tr>
+      @endforeach
+      @else
+      <tr>
+          <td colspan="8">追加された商品情報はありません。</td>
+      </tr>
+      @endif
     </tbody>
   </table>
+
+  <div class="d-flex">
+      <div class="mx-auto">
+          {{ $products->links("pagination::bootstrap-4") }}
+      </div>
+  </div>
 
 </div>
 @endsection
